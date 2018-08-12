@@ -1,0 +1,43 @@
+doctype html
+html
+    head
+        title TxtConvert
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')       
+        link(href='/index.css',rel='stylesheet')
+        // Tocas UI 
+        link(href='//cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css',rel='stylesheet')
+        script(src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js")
+        // JQ 
+        script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
+        // axios 
+        script(src='//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js')
+        // index 
+        link(href='/index.css',rel='stylesheet')
+        script(src="/index.js")
+        // Theme Color 
+        meta(name="theme-color" content="#3f51b5")
+    body
+        .ts.attached.heading.slate
+            .ts.narrow.container
+                span.header TxtConvert 0.1
+                span.description 轉換 txt 檔案
+        
+        .ts.narrow.container
+            
+            #uploader.ts.basic.dashed.clickable.slate.no.earlyspring
+                input#upload(type='file')
+                i.upload.symbol.icon
+                span.header 載入資料
+                span.description 將檔案拖拉至此處或是點擊此處來選取檔案。
+            #zhconvert
+                a(href='https://zhconvert.org/') 本程式使用了繁化姬的 API 服務
+            #loader.ts.centered.inline.loader.text.indeterminate 
+            #download(style='display:none')
+                a.ts.primary.labeled.icon.button(download="")
+                    i.download.icon
+                p 轉換完畢！
+            #error.ts.inverted.negative.message(style='display:none')
+                .header 錯誤
+                p //
+            
+
