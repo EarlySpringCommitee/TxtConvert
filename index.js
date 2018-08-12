@@ -19,7 +19,14 @@ window.onload = () => {
 }
 async function convent(t) {
     try {
-        var req = await axios.get(`https://api.zhconvert.org/convert?converter=Taiwan&text=${encodeURIComponent(t)}&prettify=1`)
+        var req = await axios({
+            method: 'post',
+            url: 'https://api.zhconvert.org/convert',
+            data: {
+                converter: 'Taiwan',
+                text: t
+            }
+        });
 
         var data = new Blob([req.data.data.text], { type: 'text/plain;charset=utf-8;' });
         var url = URL.createObjectURL(data);
