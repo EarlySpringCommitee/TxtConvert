@@ -3,7 +3,6 @@ html
     head
         title TxtConvert
         meta(name='viewport', content='width=device-width, initial-scale=1.0')       
-        link(href='/index.css',rel='stylesheet')
         // Tocas UI 
         link(href='//cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css',rel='stylesheet')
         script(src="https://cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js")
@@ -12,8 +11,8 @@ html
         // axios 
         script(src='//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js')
         // index 
-        link(href='/index.css',rel='stylesheet')
-        script(src="/index.js")
+        link(href='./index.css',rel='stylesheet')
+        script(src="./index.js")
         // Theme Color 
         meta(name="theme-color" content="#3f51b5")
     body
@@ -31,7 +30,7 @@ html
                 span.description 將檔案拖拉至此處或是點擊此處來選取檔案。
             #zhconvert
                 a(href='https://zhconvert.org/') 本程式使用了繁化姬的 API 服務
-            #loader.ts.centered.inline.loader.text.indeterminate 
+            #loader.ts.centered.inline.loader.text.indeterminate 正在將檔案發給小熊貓
             #download(style='display:none')
                 a.ts.primary.labeled.icon.button(download="")
                     i.download.icon
