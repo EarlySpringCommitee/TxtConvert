@@ -22,7 +22,7 @@ html
     body
         .ts.attached.heading.slate
             .ts.narrow.container
-                span.header TxtConvert 0.1
+                span.header TxtConvert 1.0
                 span.description 轉換 txt 檔案
         
         .ts.narrow.container
@@ -37,11 +37,10 @@ html
             #loader.ts.centered.inline.loader.text.indeterminate 正在將檔案發給小熊貓
             #preview(style='display:none')
                 h3.ts.header 預覽
-                select.ts.basic.fluid.dropdown
-                    option 始
-                    option 春
-                    option 延
-                    option 期
+                select.ts.basic.fluid.dropdown(id='encode')
+                    option utf-8
+                    option(selected="selected") gbk
+                    option gb18030
                 pre.ts.top.attached.segment
                 .ts.bottom.attached.fluid.buttons
                     .ts.primary.button(data-start) 開始轉換
