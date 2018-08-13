@@ -35,6 +35,17 @@ html
             #zhconvert
                 a(href='https://zhconvert.org/') 本程式使用了繁化姬的 API 服務
             #loader.ts.centered.inline.loader.text.indeterminate 正在將檔案發給小熊貓
+            #preview(style='display:none')
+                h3.ts.header 預覽
+                select.ts.basic.fluid.dropdown
+                    option 始
+                    option 春
+                    option 延
+                    option 期
+                pre.ts.top.attached.segment
+                .ts.bottom.attached.fluid.buttons
+                    .ts.primary.button(data-start) 開始轉換
+
             #download(style='display:none')
                 a.ts.primary.labeled.icon.button(download="")
                     i.download.icon

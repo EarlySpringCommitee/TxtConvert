@@ -9,10 +9,15 @@ window.onload = () => {
         $('#download a').attr('download', fileName).html(`<i class='download icon'></i>下載 ${fileName}`)
         reader.onload = async(e) => {
             $('#download,#error').attr('style', 'display:none')
-            $('#loader').addClass("active indeterminate")
-
-            //轉換囉
-            convent(e.target.result)
+                //預覽
+            $('#preview pre').text(e.target.result)
+            $('#preview').removeAttr('style')
+                //轉換囉
+            $('[data-start]').click(function() {
+                $('#preview').attr('style', 'display:none')
+                $('#loader').addClass("active indeterminate")
+                convent(e.target.result)
+            })
         }
         reader.readAsText(file);
     }
