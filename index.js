@@ -41,12 +41,11 @@ function getByteLength(s) {
     return (new TextEncoder()).encode(s).length
 }
 
-async function convert(t) {
-    try {
-        let maxTextLength = parseInt(((await axios.get('https://api.zhconvert.org/service-info')).data.data.maxPostBodyBytes)/4)
+async function splitText(t, maxTextLength, keywords = ['\n', '，', '。', ',', '.', ' '], convert = x => x) {
+    for (let keyword of keywords) {
         let i = 0, arr = []
         while(i < t.length) {
-            let index = t.lastIndexOf('\n', i+maxTextLength)+1
+            let index = t.lastIndexOf(keyword, i+maxTextLength-1)+1
             if (i == index) {
                 arr.push(t.substring(i, Infinity))
                 break;
@@ -55,15 +54,25 @@ async function convert(t) {
                 i = index
             }
         }
-        let result = (await Promise.all(arr.map(async(x) => (await axios({
+        if (!(arr.every(x => x.length <= maxTextLength))) continue;
+        let result = (await Promise.all(arr.map(convert))).join('')
+        return result
+    }
+}
+
+async function convert(t) {
+    try {
+        let maxTextLength = parseInt(((await axios.get('https://fhj.sciuridae.me/service-info')).data.data.maxPostBodyBytes)/4)
+        let convert = async(x) => (await axios({
             method: 'post',
-            url: 'https://api.zhconvert.org/convert',
+            url: 'https://fhj.sciuridae.me/convert',
             data: {
                 converter: 'Taiwan',
                 text: x
             }
-        })).data.data.text))).join('')
+        })).data.data.text
 
+        let result = await splitText(t, maxTextLength, ['\n', '，', '。', ',', '.', ' '], convert)
         let data = new Blob([result], { type: 'text/plain;charset=utf-8;' });
         let url = URL.createObjectURL(data);
 

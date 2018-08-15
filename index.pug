@@ -2,7 +2,8 @@ doctype html
 html
     head
         title TxtConvert
-        meta(name='viewport', content='width=device-width, initial-scale=1.0')       
+        meta(name='viewport', content='width=device-width, initial-scale=1.0')    
+        meta(charset="UTF-8")
         // Tocas UI 
         link(href='//cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.css',rel='stylesheet')
         script(src="//cdnjs.cloudflare.com/ajax/libs/tocas-ui/2.3.3/tocas.js")
@@ -10,10 +11,6 @@ html
         script(src='//cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js')
         // axios 
         script(src='//cdnjs.cloudflare.com/ajax/libs/axios/0.18.0/axios.js')
-        // 編碼轉換
-        script(src="//cdnjs.cloudflare.com/ajax/libs/jschardet/1.4.1/jschardet.min.js")
-        script(src="//cdn.rawgit.com/inexorabletash/text-encoding/4d1b5456/lib/encoding-indexes.js")
-        script(src="//cdn.rawgit.com/inexorabletash/text-encoding/4d1b5456/lib/encoding.js")
         // index 
         link(href='./index.css',rel='stylesheet')
         script(src="./index.js")
@@ -22,7 +19,7 @@ html
     body
         .ts.attached.heading.slate
             .ts.narrow.container
-                span.header TxtConvert 1.0
+                span.header TxtConvert 1.1
                 span.description 轉換 txt 檔案
         
         .ts.narrow.container
