@@ -62,6 +62,7 @@ async function splitText(t, maxTextLength, keywords = ['\n', '，', '。', ',', 
 
 async function convert(t) {
     try {
+        let isIOS = navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i);
         let maxTextLength = parseInt(((await axios.get('https://fhj.sciuridae.me/service-info')).data.data.maxPostBodyBytes)/4)
         let convert = async(x) => (await axios({
             method: 'post',
@@ -73,7 +74,7 @@ async function convert(t) {
         })).data.data.text
 
         let result = await splitText(t, maxTextLength, ['\n', '，', '。', ',', '.', ' '], convert)
-        let data = new Blob([result], { type: 'text/plain;charset=utf-8;' });
+        let data = new Blob([result], { type: isIOS ? 'application/octet-strea' :'text/plain;charset=utf-8;' });
         let url = URL.createObjectURL(data);
 
         $('#download').removeAttr('style')
