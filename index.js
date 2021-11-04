@@ -63,10 +63,10 @@ async function splitText(t, maxTextLength, keywords = ['\n', '，', '。', ',', 
 async function convert(t) {
     try {
         let isIOS = navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i);
-        let maxTextLength = parseInt(((await axios.get('https://fhj.sciuridae.me/service-info')).data.data.maxPostBodyBytes)/4)
+        let maxTextLength = parseInt(((await axios.get('https://zhc.rextw.com/service-info')).data.data.maxPostBodyBytes)/4)
         let convert = async(x) => (await axios({
             method: 'post',
-            url: 'https://fhj.sciuridae.me/convert',
+            url: 'https://zhc.rextw.com/convert',
             data: {
                 converter: 'Taiwan',
                 text: x
