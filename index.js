@@ -41,23 +41,41 @@ function getByteLength(s) {
     return (new TextEncoder()).encode(s).length
 }
 
-async function splitText(t, maxTextLength, keywords = ['\n', '，', '。', ',', '.', ' '], convert = x => x) {
-    for (let keyword of keywords) {
-        let i = 0, arr = []
-        while(i < t.length) {
-            let index = t.lastIndexOf(keyword, i+maxTextLength-1)+1
-            if (i == index) {
-                arr.push(t.substring(i, Infinity))
-                break;
-            } else {
-                arr.push(t.substring(i, index))
-                i = index
+async function splitText(t, maxTextLength, convert = x => x) {
+    const keywords = ['\n', '，', '。','；','：','、','？', ',', '.', ' '];
+    
+    // Split into tiny chunks
+    let splitted = [t];
+    while(splitted.some(x => x.length > maxTextLength)) {
+        for(let i = 0; i < splitted.length; i++) {
+            if(splitted[i].length > maxTextLength) {
+                for(const keyword of keywords){
+                    if (
+                        splitted[i].includes(keyword) &&
+                        splitted[i].split(keyword).filter(x => x).length > 1
+                    ){
+                        splitted[i] = splitted[i].split(keyword);
+                        for(let j = 0; j < splitted[i].length - 1; j++){
+                            splitted[i][j] += keyword;
+                        }
+                        break;
+                    }
+                }
             }
         }
-        if (!(arr.every(x => x.length <= maxTextLength))) continue;
-        let result = (await Promise.all(arr.map(convert))).join('')
-        return result
+        splitted = splitted.flat();
     }
+
+    // Merge to maximum chunks
+    for(let i = 0; i+1 < splitted.length; i++) {
+        if (splitted[i].length + splitted[i+1].length <= maxTextLength) {
+            splitted[i] += splitted[i+1];
+            splitted.splice(i+1, 1);
+            i--;
+        }
+    }
+
+    return (await Promise.all(splitted.map(convert))).join('');
 }
 
 async function convert(t) {
@@ -73,7 +91,7 @@ async function convert(t) {
             }
         })).data.data.text
 
-        let result = await splitText(t, maxTextLength, ['\n', '，', '。', ',', '.', ' '], convert)
+        let result = await splitText(t, maxTextLength, convert)
         let data = new Blob([result], { type: isIOS ? 'application/octet-strea' :'text/plain;charset=utf-8;' });
         let url = URL.createObjectURL(data);
 
