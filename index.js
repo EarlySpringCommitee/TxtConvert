@@ -18,7 +18,7 @@ window.onload = () => {
             varray = new Uint8Array(buffer)
             $('#download,#error').attr('style', 'display:none')
                 //預覽
-            $('#preview pre').text((new TextDecoder(getEncode())).decode(varray.slice(0,100)))
+            $('#preview pre').text((new TextDecoder(getEncode())).decode(varray.slice(0, 96)))
             $('#preview').removeAttr('style')
                 //轉換囉
             $('[data-start]').click(function() {
