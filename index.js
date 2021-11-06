@@ -82,7 +82,7 @@ async function convert(t) {
     try {
         let isIOS = navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i);
         let maxTextLength = parseInt(((await axios.get('https://zhc.rextw.com/service-info')).data.data.maxPostBodyBytes)/4)
-        let convert = async(x) => (await axios({
+        let _convert = async(x) => (await axios({
             method: 'post',
             url: 'https://zhc.rextw.com/convert',
             data: {
@@ -91,8 +91,8 @@ async function convert(t) {
             }
         })).data.data.text
 
-        let result = await splitText(t, maxTextLength, convert)
-        let data = new Blob([result], { type: isIOS ? 'application/octet-strea' :'text/plain;charset=utf-8;' });
+        let result = await splitText(t, maxTextLength, _convert)
+        let data = new Blob([result], { type: isIOS ? 'application/octet-stream' :'text/plain;charset=utf-8;' });
         let url = URL.createObjectURL(data);
 
         $('#download').removeAttr('style')
