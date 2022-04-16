@@ -75,7 +75,12 @@ async function splitText(t, maxTextLength, convert = x => x) {
         }
     }
 
-    return (await Promise.all(splitted.map(convert))).join('');
+    // Prevent 429 Error
+    let result = "";
+    for(const s of splitted) {
+        result += await convert(s);
+    }
+    return result;
 }
 
 async function convert(t) {
