@@ -86,7 +86,7 @@ async function splitText(t, maxTextLength, convert = x => x) {
 async function convert(t) {
     try {
         let isIOS = navigator.userAgent.toLowerCase().match(/(iPad|iPhone|iPod)/i);
-        let maxTextLength = parseInt(((await axios.get('https://zhc.rextw.com/service-info')).data.data.maxPostBodyBytes)/4)
+        let maxTextLength = parseInt(((await axios.get('https://zhc.rextw.com/service-info')).data.data.maxPostBodyBytes)/8)
         let _convert = async(x) => (await axios({
             method: 'post',
             url: 'https://zhc.rextw.com/convert',
